@@ -92,23 +92,26 @@ trait ContentTrait
      */
     public function fileProperties($disk, $path = null)
     {
-        $file = Storage::disk($disk)->getMetadata($path);
-
         $pathInfo = pathinfo($path);
 
-        $file['basename'] = $pathInfo['basename'];
-        $file['dirname'] = $pathInfo['dirname'] === '.' ? ''
-            : $pathInfo['dirname'];
-        $file['extension'] = isset($pathInfo['extension'])
-            ? $pathInfo['extension'] : '';
-        $file['filename'] = $pathInfo['filename'];
+        $properties = [
+            'type'       => 'file',
+            'path'       => $path,
+            'basename'   => $pathInfo['basename'],
+            'dirname'    => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
+            'extension'  => $pathInfo['extension'] ?? '',
+            'filename'   => $pathInfo['filename'],
+            'size'       => Storage::disk($disk)->size($path),
+            'timestamp'  => Storage::disk($disk)->lastModified($path),
+            'visibility' => Storage::disk($disk)->getVisibility($path),
+        ];
 
         // if ACL ON
         if ($this->configRepository->getAcl()) {
-            return $this->aclFilter($disk, [$file])[0];
+            return $this->aclFilter($disk, [$properties])[0];
         }
 
-        return $file;
+        return $properties;
     }
 
     /**
@@ -183,9 +186,25 @@ trait ContentTrait
     protected function filterFile($disk, $content)
     {
         // select only files
-        $files = Arr::where($content, function ($item) {
+        $filesList = Arr::where($content, function ($item) {
             return $item['type'] === 'file';
         });
+
+        $files = array_map(function ($item) use ($disk) {
+            $pathInfo = pathinfo($item['path']);
+
+            return [
+                'type'       => $item['type'],
+                'path'       => $item['path'],
+                'basename'   => $pathInfo['basename'],
+                'dirname'    => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
+                'extension'  => $pathInfo['extension'] ?? '',
+                'filename'   => $pathInfo['filename'],
+                'size'       => $item['size'],
+                'timestamp'  => Storage::disk($disk)->lastModified($item['path']),
+                'visibility' => Storage::disk($disk)->getVisibility($item['path']),
+            ];
+        }, $filesList);
 
         // if ACL ON
         if ($this->configRepository->getAcl()) {
