@@ -211,4 +211,14 @@ class DefaultConfigRepository implements ConfigRepository
     {
         return config('file-manager.aclRulesCache');
     }
+
+    /**
+     * File upload - Max POST size in KB
+     *
+     * null - no restrictions
+     */
+    public function getMaxPostSize(): ?int
+    {
+        return config('file-manager.maxPostSize');
+    }
 }

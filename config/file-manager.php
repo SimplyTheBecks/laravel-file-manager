@@ -135,6 +135,13 @@ return [
      */
     'aclRulesCache' => null,
 
+    /**
+     * File upload - Max POST size in KB
+     *
+     * null - no restrictions
+     */
+    'maxPostSize' => null,
+
     //********* Default configuration for DefaultConfigRepository END **********
 
 

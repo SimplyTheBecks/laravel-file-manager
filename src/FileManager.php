@@ -50,13 +50,16 @@ class FileManager
         }
 
         $config = [
-            'acl'           => $this->configRepository->getAcl(),
-            'leftDisk'      => $this->configRepository->getLeftDisk(),
-            'rightDisk'     => $this->configRepository->getRightDisk(),
-            'leftPath'      => $this->configRepository->getLeftPath(),
-            'rightPath'     => $this->configRepository->getRightPath(),
-            'windowsConfig' => $this->configRepository->getWindowsConfig(),
-            'hiddenFiles'   => $this->configRepository->getHiddenFiles(),
+            'acl'               => $this->configRepository->getAcl(),
+            'leftDisk'          => $this->configRepository->getLeftDisk(),
+            'rightDisk'         => $this->configRepository->getRightDisk(),
+            'leftPath'          => $this->configRepository->getLeftPath(),
+            'rightPath'         => $this->configRepository->getRightPath(),
+            'windowsConfig'     => $this->configRepository->getWindowsConfig(),
+            'hiddenFiles'       => $this->configRepository->getHiddenFiles(),
+            'maxUploadFileSize' => $this->configRepository->getMaxUploadFileSize(),
+            'allowFileTypes'    => $this->configRepository->getAllowFileTypes(),
+            'maxPostSize'       => $this->configRepository->getMaxPostSize(),
         ];
 
         // disk list
