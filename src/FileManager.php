@@ -60,6 +60,7 @@ class FileManager
             'maxUploadFileSize' => $this->configRepository->getMaxUploadFileSize(),
             'allowFileTypes'    => $this->configRepository->getAllowFileTypes(),
             'maxPostSize'       => $this->configRepository->getMaxPostSize(),
+            'maxFileUploads'    => $this->configRepository->getMaxFileUploads(),
         ];
 
         // disk list

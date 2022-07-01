@@ -167,4 +167,11 @@ interface ConfigRepository
      * null - no restrictions
      */
     public function getMaxPostSize(): ?int;
+
+    /**
+     * File upload - Max number of files
+     *
+     * null - no restrictions
+     */
+    public function getMaxFileUploads(): ?int;
 }

@@ -142,6 +142,13 @@ return [
      */
     'maxPostSize' => null,
 
+    /**
+     * File upload - Max number of files
+     *
+     * null - no restrictions
+     */
+    'maxFileUploads' => null,
+
     //********* Default configuration for DefaultConfigRepository END **********
 
 

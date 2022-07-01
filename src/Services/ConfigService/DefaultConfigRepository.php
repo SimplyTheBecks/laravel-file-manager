@@ -221,4 +221,14 @@ class DefaultConfigRepository implements ConfigRepository
     {
         return config('file-manager.maxPostSize');
     }
+
+    /**
+     * File upload - Max number of files
+     *
+     * null - no restrictions
+     */
+    public function getMaxFileUploads(): ?int
+    {
+        return config('file-manager.maxFileUploads');
+    }
 }
