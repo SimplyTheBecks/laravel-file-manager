@@ -26,6 +26,9 @@ Route::group([
     Route::get('content', 'FileManagerController@content')
         ->name('fm.content');
 
+    Route::get('search', 'FileManagerController@search')
+        ->name('fm.search');
+
     Route::get('tree', 'FileManagerController@tree')
         ->name('fm.tree');
 

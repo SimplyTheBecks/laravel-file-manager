@@ -71,6 +71,22 @@ class FileManagerController extends Controller
         );
     }
 
+
+    /**
+     * @param RequestValidator $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(RequestValidator $request)
+    {
+        return response()->json(
+            $this->fm->search(
+                $request->input('disk'),
+                $request->input('term')
+            )
+        );
+    }
+
     /**
      * Directory tree
      *

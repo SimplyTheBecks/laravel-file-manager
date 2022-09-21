@@ -8,6 +8,7 @@ use Alexusmai\LaravelFileManager\Traits\ContentTrait;
 use Alexusmai\LaravelFileManager\Traits\PathTrait;
 use Alexusmai\LaravelFileManager\Services\TransferService\TransferFactory;
 use Alexusmai\LaravelFileManager\Services\ConfigService\ConfigRepository;
+use Alexusmai\LaravelFileManager\Traits\SearchTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Storage;
@@ -15,7 +16,7 @@ use Image;
 
 class FileManager
 {
-    use PathTrait, ContentTrait, CheckTrait;
+    use PathTrait, ContentTrait, CheckTrait, SearchTrait;
 
     /**
      * @var ConfigRepository
@@ -96,6 +97,27 @@ class FileManager
     {
         // get content for the selected directory
         $content = $this->getContent($disk, $path);
+
+        return [
+            'result'      => [
+                'status'  => 'success',
+                'message' => null,
+            ],
+            'directories' => $content['directories'],
+            'files'       => $content['files'],
+        ];
+    }
+
+    /**
+     * @param $disk
+     * @param $path
+     *
+     * @return array
+     */
+    public function search($disk, $term)
+    {
+        // get content for the selected directory
+        $content = $this->getSearchContent($disk, $term);
 
         return [
             'result'      => [
