@@ -28,9 +28,10 @@ trait SearchTrait
         $this->disc = $disk;
 
         $content = [];
-
+        $term = strtolower($term);
         foreach ($this->storageItemsTypes as $storageItemsType => $options) {
             $content[$options['key']] = collect(Storage::disk($disk)->{$options['getFunc']}())->filter(function ($path) use ($term){
+                $path = strtolower($path);
                 if (strpos($term, '/' ) !== false){
                     return strpos($path, $term) !== false;
                 } else {
