@@ -112,10 +112,12 @@ class FileManager
      * @param $disk
      * @param $path
      *
-     * @return array
      */
     public function search($disk, $term)
     {
+        if(!$term){
+            return $this->tree($disk, '');
+        }
         // get content for the selected directory
         $content = $this->getSearchContent($disk, $term);
 
